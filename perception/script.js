@@ -16,10 +16,17 @@
 // For each row in data, create a div
 // For each item in row, create a span
 
-d3.select('body').selectAll('div')
-  .data(data[1].slice(1))
+var people = d3.select('body').selectAll('div')
+  .data(data.slice(1))
+  .enter()
+  .append('div');
+
+people[0].forEach(function(person) {
+  d3.select(person).selectAll('div')
+  .data(person.__data__.slice(1))
   .enter()
   .append('div')
+  .attr('class', 'inline-div')
   .style({
     width: function(d) {
       return '2em';
@@ -38,3 +45,4 @@ d3.select('body').selectAll('div')
       }
     }
   });
+});
