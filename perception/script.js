@@ -17,7 +17,7 @@
 // For each item in row, create a span
 
 var people = d3.select('body').selectAll('div')
-  .data(data.slice(1))
+  .data(closeness.slice(1))
   .enter()
   .append('div');
 
