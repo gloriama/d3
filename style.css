@@ -5,4 +5,5 @@ body {
 div {
   background: firebrick;
   margin-bottom: 1em;
+  height: 2em;
 }
