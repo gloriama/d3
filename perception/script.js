@@ -43,6 +43,9 @@ var comparators = {
   women: function(a, b) {
     return women[a] ? -1 : 1;
   },
+  age: function(a, b) {
+    return age[a] - age[b];
+  },
   earliestWorkedWith: function(a, b) {
     if (!partnerInfo[b]) {
       return -1;
