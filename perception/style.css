@@ -2,14 +2,20 @@ body {
   background: papayawhip;
 }
 
-.parent-div,
-.child-div {
-  margin-bottom: .2em;
-  height: 2em;
+div {
+  margin-bottom: .1em;
 }
 
-.child-div {
-  display: inline-block;
+.person-div {
+  display: flex;
+}
+
+.name-div {
+  width: 5em;
+  margin-right: 1em;
+}
+
+.datum-div {
   width: 2em;
   margin-right: .1em;
 }
