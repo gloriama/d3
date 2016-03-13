@@ -27,10 +27,21 @@ var sumNumbers = function(arr) {
   }, 0);
 };
 
+// var orderBy = function(infoObj, key, )
+
 var comparators = {
   alphabetical: null, //default - will sort strings alphabetically
   closeness: function(a, b) {
     return sumNumbers(closeness[a]) - sumNumbers(closeness[b]);
+  },
+  queers: function(a, b) {
+    return queers[a] ? -1 : 1;
+  },
+  tapout: function(a, b) {
+    return tapout[a] ? -1 : 1;
+  },
+  women: function(a, b) {
+    return women[a] ? -1 : 1;
   },
   earliestWorkedWith: function(a, b) {
     if (!partnerInfo[b]) {
