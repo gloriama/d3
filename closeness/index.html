@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Perception Log</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Perception Log</h1>
+
+    <!-- Display options -->
+   <!--  <input type="radio" name="displayBy" onclick="updateOrdering('alphabetical')" checked />Ordering 1 -->
+    <input type="radio" name="displayBy" onclick="updateOrdering('closeness')" />Closeness
+    <br>
+    <input type="radio" name="displayBy" onclick="updateOrdering('earliestWorkedWith')" />[Redacted]
+    <input type="radio" name="displayBy" onclick="updateOrdering('longestWorkedWith')" />[Redacted]
+    <input type="radio" name="displayBy" onclick="updateOrdering('queers')" />[Redacted]
+    <br>
+    <input type="radio" name="displayBy" onclick="updateOrdering('women')" />[Redacted]
+    <input type="radio" name="displayBy" onclick="updateOrdering('age')" />[Redacted]
+    <input type="radio" name="displayBy" onclick="updateOrdering('race')" />[Redacted]
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js"></script>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

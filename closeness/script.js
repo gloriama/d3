@@ -46,6 +46,9 @@ var comparators = {
   age: function(a, b) {
     return age[a] - age[b];
   },
+  race: function(a, b) {
+    return race[a] - race[b];
+  },
   earliestWorkedWith: function(a, b) {
     if (!partnerInfo[b]) {
       return -1;
@@ -94,7 +97,7 @@ var updateOrdering = function(ordering) {
 
   personDivs[0].forEach(function(personDiv) {
     d3.select(personDiv).selectAll('div.name-div')
-      .text(personDiv.__data__);
+      .text('');
     d3.select(personDiv).selectAll('div.datum-div')
       .data(closeness[personDiv.__data__])
       .transition().duration(500)
@@ -115,7 +118,7 @@ personDivs[0].forEach(function(personDiv) {
     .enter()
     .append('div')
     .attr('class', 'name-div')
-    .text(personDiv.__data__);
+    .text('');
 
   d3.select(personDiv).selectAll('div.datum-div')
     .data(closeness[personDiv.__data__])
