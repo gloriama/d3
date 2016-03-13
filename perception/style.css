@@ -1,21 +1,18 @@
 body {
-  background: papayawhip;
-}
-
-div {
-  margin-bottom: .1em;
+  font-family: Georgia, serif;
 }
 
 .person-div {
   display: flex;
+  margin-bottom: .2em;
 }
 
 .name-div {
   width: 5em;
-  margin-right: 1em;
 }
 
 .datum-div {
-  width: 2em;
-  margin-right: .1em;
+  width: 1.2em;
+  height: 1.2em;
+  margin-right: .2em;
 }

@@ -34,11 +34,11 @@ closenessBy.longestWorkedWith.sort(function(a, b) {
 var numToColor = function(d) {
   switch(d) {
     case 0:
-      return 'green';
+      return '#48a245'; //darker green
     case 1:
-      return 'yellow';
+      return '#8ec56a'; //medium green
     case 2:
-      return 'red';
+      return '#d6e58a'; //lighter green
   }
 };
 
