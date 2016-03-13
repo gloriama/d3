@@ -39,6 +39,8 @@ var numToColor = function(d) {
       return '#8ec56a'; //medium green
     case 2:
       return '#d6e58a'; //lighter green
+    case 3:
+      return '#ededed'; //grey
   }
 };
 
@@ -51,6 +53,7 @@ var updateOrdering = function(ordering) {
       .text(person.__data__[0]);
     d3.select(person).selectAll('div.datum-div')
       .data(person.__data__.slice(1))
+      .transition().duration(500)
       .style('background', numToColor);
   });
 };
