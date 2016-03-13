@@ -63,6 +63,9 @@ var comparators = {
   }
 };
 
+var memoizedOrderings = {
+  alphabetical: personNames.sort(comparators['alphabetical']).slice()
+};
 
 // ---- RENDER USING D3 ----
 
@@ -78,10 +81,13 @@ var getNumToColor = function(d) {
 };
 
 var updateOrdering = function(ordering) {
-  personNames.sort(comparators[ordering]);
+  if (!memoizedOrderings[ordering]) {
+    personNames.sort(comparators[ordering]);
+    memoizedOrderings[ordering] = personNames.slice();
+  }
 
   var personDivs = d3.select('body').selectAll('div.person-div')
-    .data(personNames);
+    .data(memoizedOrderings[ordering]);
 
   personDivs[0].forEach(function(personDiv) {
     d3.select(personDiv).selectAll('div.name-div')
@@ -94,9 +100,8 @@ var updateOrdering = function(ordering) {
 };
 
 // Create divs and render initially (sorted alphabetically by default)
-personNames.sort(comparators.alphabetical);
 var personDivs = d3.select('body').selectAll('div')
-  .data(personNames)
+  .data(memoizedOrderings.alphabetical)
   .enter()
   .append('div')
   .attr('class', 'person-div');
