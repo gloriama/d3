@@ -4,19 +4,11 @@ var sumNumbers = function(arr) {
   }, 0);
 };
 
-var earliestWeekWorkedWith = function(personName) {
-  for (var i = 0; i < partners.length; i++) {
-    if (partners[i].indexOf(personName) !== -1) {
-      return i+1;
-    }
-  }
-  return -1;
-};
-
 var closenessBy = {
   alphabetical: closeness,
   closeness: closeness.slice(),
   earliestWorkedWith: closeness.slice(),
+  longestWorkedWith: closeness.slice()
 };
 
 closenessBy.closeness.sort(function(a, b) {
@@ -24,8 +16,8 @@ closenessBy.closeness.sort(function(a, b) {
 });
 
 closenessBy.earliestWorkedWith.sort(function(a, b) {
-  var resultA = earliestWeekWorkedWith(a[0]);
-  var resultB = earliestWeekWorkedWith(b[0]);
+  var resultA = orderWorkedWith.indexOf(a[0]);
+  var resultB = orderWorkedWith.indexOf(b[0]);
   if (resultA !== -1 && resultB === -1) {
     return -1;
   } else if (resultA === -1 && resultB !== -1) {
@@ -35,7 +27,11 @@ closenessBy.earliestWorkedWith.sort(function(a, b) {
   }
 });
 
-console.log(closenessBy.earliestWorkedWith.map(function(a) { return a[0]; }));
+closenessBy.longestWorkedWith.sort(function(a, b) {
+  return daysWorkedWith(b[0]) - daysWorkedWith(a[0]);
+});
+
+console.log(closenessBy.longestWorkedWith.map(function(a) { return a[0]; }));
 
 var numToColor = function(d) {
   switch(d) {
