@@ -8,8 +8,8 @@
     <h1>Perception Log</h1>
 
     <!-- Display options -->
-    <input type="radio" name="displayBy" value="alphabetical" checked>Alphabetical</input>
-    <input type="radio" name="displayBy" value="closeness">Closeness</input>
+    <input type="radio" name="displayBy" value="alphabetical" onclick="updateOrdering('alphabetical')" checked>Alphabetical</input>
+    <input type="radio" name="displayBy" value="closeness" onclick="updateOrdering('closeness')">Closeness</input>
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js"></script>
