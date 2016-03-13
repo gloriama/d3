@@ -1,0 +1,12 @@
+body {
+  font-family: Georgia, serif;
+}
+
+div {
+  margin-bottom: 1em;
+}
+
+.inline-div {
+  display: inline-block;
+  background: firebrick;
+}
