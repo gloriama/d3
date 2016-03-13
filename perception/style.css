@@ -10,6 +10,6 @@ body {
 
 .child-div {
   display: inline-block;
-  width: 10%;
+  width: 2em;
   margin-right: .1em;
 }

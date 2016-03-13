@@ -4,13 +4,49 @@ var sumNumbers = function(arr) {
   }, 0);
 };
 
+var earliestWeekWorkedWith = function(personName) {
+  for (var i = 0; i < partners.length; i++) {
+    if (partners[i].indexOf(personName) !== -1) {
+      return i+1;
+    }
+  }
+  return -1;
+};
+
 var closenessBy = {
   alphabetical: closeness,
-  closeness: closeness.slice()
+  closeness: closeness.slice(),
+  earliestWorkedWith: closeness.slice(),
 };
+
 closenessBy.closeness.sort(function(a, b) {
   return sumNumbers(a) - sumNumbers(b);
 });
+
+closenessBy.earliestWorkedWith.sort(function(a, b) {
+  var resultA = earliestWeekWorkedWith(a[0]);
+  var resultB = earliestWeekWorkedWith(b[0]);
+  if (resultA !== -1 && resultB === -1) {
+    return -1;
+  } else if (resultA === -1 && resultB !== -1) {
+    return 1;
+  } else {
+    return resultA - resultB;
+  }
+});
+
+console.log(closenessBy.earliestWorkedWith.map(function(a) { return a[0]; }));
+
+var numToColor = function(d) {
+  switch(d) {
+    case 0:
+      return 'green';
+    case 1:
+      return 'yellow';
+    case 2:
+      return 'red';
+  }
+};
 
 var updateOrdering = function(ordering) {
   var people = d3.select('body').selectAll('div.parent-div')
@@ -19,24 +55,7 @@ var updateOrdering = function(ordering) {
   people[0].forEach(function(person) {
     d3.select(person).selectAll('div')
       .data(person.__data__.slice(1))
-      .style({
-        width: function(d) {
-          return '2em';
-        },
-        background: function(d) {
-          switch(d) {
-            case 0:
-              return 'green';
-              break;
-            case 1:
-              return 'yellow';
-              break;
-            case 2:
-              return 'red';
-              break;
-          }
-        }
-      });
+      .style('background', numToColor);
   });
 };
 
@@ -53,22 +72,5 @@ people[0].forEach(function(person) {
     .enter()
     .append('div')
     .attr('class', 'child-div')
-    .style({
-      width: function(d) {
-        return '2em';
-      },
-      background: function(d) {
-        switch(d) {
-          case 0:
-            return 'green';
-            break;
-          case 1:
-            return 'yellow';
-            break;
-          case 2:
-            return 'red';
-            break;
-        }
-      }
-    });
+    .style('background', numToColor);
 });
