@@ -1,82 +1,107 @@
+// ---- CRUNCH DATA ----
+
+var personNames = Object.keys(closeness);
+var partnerInfo = partners.reduce(function(acc, personNameOrNames, i) {
+  var info = {
+    length: sprintLengths[i],
+    firstDay: acc._counter
+  };
+  if (typeof personNameOrNames === 'string') {
+    acc[personNameOrNames] = info;
+  } else {
+    personNameOrNames.forEach(function(personName) {
+      acc[personName] = info;
+    });
+  }
+  acc._counter += sprintLengths[i];
+  return acc;
+}, { _counter: 1 });
+delete partnerInfo._counter;
+
+
+// ---- SET UP COMPARATORS ----
+
 var sumNumbers = function(arr) {
   return arr.reduce(function(acc, item) {
-    return acc + (typeof item === 'number' ? item : 0);
+    return acc + item;
   }, 0);
 };
 
-var closenessBy = {
-  alphabetical: closeness,
-  closeness: closeness.slice(),
-  earliestWorkedWith: closeness.slice(),
-  longestWorkedWith: closeness.slice()
+var comparators = {
+  alphabetical: null, //default - will sort strings alphabetically
+  closeness: function(a, b) {
+    return sumNumbers(closeness[a]) - sumNumbers(closeness[b]);
+  },
+  earliestWorkedWith: function(a, b) {
+    if (!partnerInfo[b]) {
+      return -1;
+    } else if (!partnerInfo[a]) {
+      return 1;
+    } else {
+      return partnerInfo[a].firstDay - partnerInfo[b].firstDay;
+    }
+  },
+  longestWorkedWith: function(a, b) {
+    if (!partnerInfo[b]) {
+      return -1;
+    } else if (!partnerInfo[a]) {
+      return 1;
+    } else {
+      return partnerInfo[b].length - partnerInfo[a].length;
+    }
+  }
 };
 
-closenessBy.closeness.sort(function(a, b) {
-  return sumNumbers(a) - sumNumbers(b);
-});
 
-closenessBy.earliestWorkedWith.sort(function(a, b) {
-  var resultA = orderWorkedWith.indexOf(a[0]);
-  var resultB = orderWorkedWith.indexOf(b[0]);
-  if (resultA !== -1 && resultB === -1) {
-    return -1;
-  } else if (resultA === -1 && resultB !== -1) {
-    return 1;
-  } else {
-    return resultA - resultB;
-  }
-});
+// ---- RENDER USING D3 ----
 
-closenessBy.longestWorkedWith.sort(function(a, b) {
-  return daysWorkedWith(b[0]) - daysWorkedWith(a[0]);
-});
+var numToColor = {
+  '0': '#48a245', //darker green
+  '1': '#8ec56a', //medium green
+  '2': '#d6e58a', //lighter green
+  '3': '#ededed' //grey
+};
 
-var numToColor = function(d) {
-  switch(d) {
-    case 0:
-      return '#48a245'; //darker green
-    case 1:
-      return '#8ec56a'; //medium green
-    case 2:
-      return '#d6e58a'; //lighter green
-    case 3:
-      return '#ededed'; //grey
-  }
+var getNumToColor = function(d) {
+  return numToColor[d];
 };
 
 var updateOrdering = function(ordering) {
-  var people = d3.select('body').selectAll('div.person-div')
-    .data(closenessBy[ordering]);
+  personNames.sort(comparators[ordering]);
 
-  people[0].forEach(function(person) {
-    d3.select(person).selectAll('div.name-div')
-      .text(person.__data__[0]);
-    d3.select(person).selectAll('div.datum-div')
-      .data(person.__data__.slice(1))
+  var personDivs = d3.select('body').selectAll('div.person-div')
+    .data(personNames);
+
+  personDivs[0].forEach(function(personDiv) {
+    d3.select(personDiv).selectAll('div.name-div')
+      .text(personDiv.__data__);
+    d3.select(personDiv).selectAll('div.datum-div')
+      .data(closeness[personDiv.__data__])
       .transition().duration(500)
-      .style('background', numToColor);
+      .style('background', getNumToColor);
   });
 };
 
-// Run automatically
-var people = d3.select('body').selectAll('div')
-  .data(closenessBy['alphabetical'])
+// Create divs and render initially (sorted alphabetically by default)
+personNames.sort(comparators.alphabetical);
+var personDivs = d3.select('body').selectAll('div')
+  .data(personNames)
   .enter()
   .append('div')
   .attr('class', 'person-div');
 
-people[0].forEach(function(person) {
-  d3.select(person).selectAll('div.name-div')
-    .data([person.__data__[0]])
+personDivs[0].forEach(function(personDiv) {
+  d3.select(personDiv).selectAll('div.name-div')
+    .data(['dummy']) // dummy array, used for its length (1) to create one div
     .enter()
     .append('div')
     .attr('class', 'name-div')
-    .text(person.__data__[0]);
+    .text(personDiv.__data__);
 
-  d3.select(person).selectAll('div.datum-div')
-    .data(person.__data__.slice(1))
+  d3.select(personDiv).selectAll('div.datum-div')
+    .data(closeness[personDiv.__data__])
     .enter()
     .append('div')
     .attr('class', 'datum-div')
-    .style('background', numToColor);
+    .style('background', getNumToColor);
 });
