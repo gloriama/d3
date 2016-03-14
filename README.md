@@ -12,6 +12,12 @@ To protect privacy, data files with sensitive information have been left out of 
 
 This is a visualization of my perceived closeness to classmates throughout a 12-week program. It allows for sorting by demographics (such as age, gender, and race), as well as by custom parameters, such as how early on I worked with the person in the program.
 
+### Budget (circles by size)
+
+*Work in progress*
+
+This renders my personal budget for three months, split by category, as the area of circles.
+
 ## Uploading screenshare demos for Mac users
 
 Getting gifs on GitHub is a really nice way to show off what your repo can do, especially if it is not something that is deployed (or something you even want to deploy, as in the case of this repo where there is personal data I don't want to share).
@@ -36,3 +42,4 @@ Here is a step-by-step process to get something from your screen to your GitHub.
 
 * [Justin Shaw](https://github.com/jshaw22), for teaching me how to upload screenshare demos
 * GitHub, for their square colors (used in Closeness)
+* [Michael Bostock](https://bl.ocks.org/mbostock), who not only was one of the key developers of D3 and therefore obviously deserves an acknowledgment, but also created some great examples and tutorials for learning it. In particular, his [Collision Detection](https://bl.ocks.org/mbostock/3231298) example was used in Budget
