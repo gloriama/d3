@@ -92,17 +92,20 @@ var updateOrdering = function(ordering) {
     memoizedOrderings[ordering] = personNames.slice();
   }
 
-  var personDivs = d3.select('body').selectAll('div.person-div')
+  personDivs
     .data(memoizedOrderings[ordering]);
 
-  personDivs[0].forEach(function(personDiv) {
-    d3.select(personDiv).selectAll('div.name-div')
-      .text('');
-    d3.select(personDiv).selectAll('div.datum-div')
-      .data(closeness[personDiv.__data__])
-      .transition().duration(500)
-      .style('background', getNumToColor);
-  });
+  personDivs.select('.name-div')
+    .text(function(d) {
+      return d;
+    });
+
+  datumDivs
+    .data(function(d) {
+      return closeness[d];
+    })
+    .transition().duration(500)
+    .style('background', getNumToColor);
 };
 
 // Create divs and render initially (sorted alphabetically by default)
@@ -112,18 +115,17 @@ var personDivs = d3.select('body').selectAll('div')
   .append('div')
   .attr('class', 'person-div');
 
-personDivs[0].forEach(function(personDiv) {
-  d3.select(personDiv).selectAll('div.name-div')
-    .data(['dummy']) // dummy array, used for its length (1) to create one div
-    .enter()
-    .append('div')
-    .attr('class', 'name-div')
-    .text('');
+var nameDivs = personDivs.append('div')
+  .attr('class', 'name-div')
+  .text(function(d) {
+    return d;
+  });
 
-  d3.select(personDiv).selectAll('div.datum-div')
-    .data(closeness[personDiv.__data__])
-    .enter()
-    .append('div')
-    .attr('class', 'datum-div')
-    .style('background', getNumToColor);
-});
+var datumDivs = personDivs.selectAll('.datum-div')
+  .data(function(d) {
+    return closeness[d];
+  })
+  .enter()
+  .append('div')
+  .attr('class', 'datum-div')
+  .style('background', getNumToColor);

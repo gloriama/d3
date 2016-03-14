@@ -28,19 +28,16 @@ var legendItems = legend.selectAll('div')
   .enter().append('div')
   .attr('class', 'flex-div');
 
-legendItems[0].forEach(function(legendItem, i) {
-  console.log(legendItem);
-  d3.select(legendItem).append('div')
+legendItems.append('div')
   .attr('class', 'square-div')
-  .style('background', function() {
+  .style('background', function(d, i) {
     return color(i % 10);
   });
 
-  d3.select(legendItem).append('div')
+legendItems.append('div')
   .text(function(d) {
     return d[0];
   });
-});
 
 // Create svg element
 var svg = d3.select("body").append("svg")
