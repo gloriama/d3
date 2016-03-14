@@ -4,7 +4,15 @@ A collection of data visualizations using D3.js
 
 To protect privacy, data files with sensitive information have been left out of the repo.
 
-## Contents
+## Table of Contents
+
+1. [Individual visualizations](#individual-visualizations)
+  1. [Closeness](#closeness-heatmap)
+  2. [Budget](#budget-circles-by-size)
+2. [Uploading screenshare demos for Mac users](#uploading-screenshare-demos-for-mac-users)
+3. [Acknowledgments](#acknowledgments)
+
+## Individual visualizations
 
 ### Closeness (heatmap)
 
