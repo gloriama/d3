@@ -2,29 +2,31 @@ var calculateRadiusForArea = function(area) {
   return Math.sqrt(area / Math.PI);
 };
 
-var categoryDivs = d3.select('body').selectAll('div')
+var svg = d3.select('body').append('svg')
+  .attr('width', 500)
+  .attr('height', 400);
+
+svg.selectAll('circle')
   .data(totalCosts)
   .enter()
-  .append('div');
-
-categoryDivs[0].forEach(function(categoryDiv) {
-  d3.select(categoryDiv).selectAll('div')
-    .data(['dummy'])
-    .enter()
-    .append('div')
-    .attr('class', 'inline-div')
-    .style({
-      width: function(d) {
-        return calculateRadiusForArea(categoryDiv.__data__[1]) * 2 + 'px';
-      },
-      height: function(d) {
-        return calculateRadiusForArea(categoryDiv.__data__[1]) * 2 + 'px';
-      },
-      'border-radius': function(d) {
-        return calculateRadiusForArea(categoryDiv.__data__[1]) + 'px';
-      }
-    })
-    .text(function(d) {
-      return categoryDiv.__data__[0];
-    });
-})
+  .append('circle')
+  .attr({
+    r: function(d) { 
+      return calculateRadiusForArea(d[1]);
+    },
+    cx: function() {
+      return Math.random() * 500;
+    },
+    cy: function() {
+      return Math.random() * 400;
+    }
+  })
+  .style({
+    fill: function() {
+      return 'red';
+    }
+  })
+  // this text does not work
+  .text(function(d) {
+    return d[0];
+  });
