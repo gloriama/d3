@@ -34,7 +34,7 @@ svg.selectAll("circle")
    .style("fill", function(d, i) { return color(i % 10); });
 
 // Initialize a gravitational force on all nodes, including root
-// All nodes will have a charge of -2000 except the root, which has no charge
+// All nodes will have no charge except the root, which is negative (i.e. repels others)
 var force = d3.layout.force()
     .gravity(0.05)
     .charge(function(d, i) { return i ? 0 : -2000; })
@@ -67,19 +67,29 @@ svg.on("mousemove", function() {
   force.resume();
 });
 
-// Returns function that checks if some node quad, with top-left corner (x1, y1) and bottom-right corner (x2, y2), collides with given node node
+// Given node (a node), returns function that takes quad (another node)
+// and, if needed, modifies their positions so that they do not overlap
 function collide(node) {
+  // Define a square in which node resides,
+  // i.e. with top-left corner (nx1, ny1) and bottom-right corner (nx2, ny2)
   var r = node.radius + 16,
       nx1 = node.x - r,
       nx2 = node.x + r,
       ny1 = node.y - r,
       ny2 = node.y + r;
+
+  // Return function that takes quad (a node)
+  // with top-left corner (x1, y1) and bottom-right corner (x2, y2)
   return function(quad, x1, y1, x2, y2) {
+    // If quad is different node than node
     if (quad.point && (quad.point !== node)) {
+      // Determine the distance between them
       var x = node.x - quad.point.x,
           y = node.y - quad.point.y,
           l = Math.sqrt(x * x + y * y),
           r = node.radius + quad.point.radius;
+
+      // If they overlap, modify their positions so that they do not
       if (l < r) {
         l = (l - r) / l * .5;
         node.x -= x *= l;
@@ -88,6 +98,9 @@ function collide(node) {
         quad.point.y += y;
       }
     }
+
+    //Return true if we know for sure that they don't collide
+    //(If returns false, they may still collide - then this will be called again)
     return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
   };
 }
