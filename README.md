@@ -8,13 +8,13 @@ To protect privacy, data files with sensitive information have been left out of 
 
 ### Closeness (heatmap)
 
-![Screen recording demo](https://fat.gfycat.com/OilyKindGibbon.gif)
+![Closeness screen recording demo](https://fat.gfycat.com/OilyKindGibbon.gif)
 
 This is a visualization of my perceived closeness to classmates throughout a 12-week program. It allows for sorting by demographics (such as age, gender, and race), as well as by custom parameters, such as how early on I worked with the person in the program.
 
 ### Budget (circles by size)
 
-*Work in progress*
+![Budget screenshot](https://raw.githubusercontent.com/gloriama/d3/master/budget/demo.png)
 
 This renders my personal budget for three months, split by category, as the area of circles.
 
@@ -28,7 +28,7 @@ Here is a step-by-step process to get something from your screen to your GitHub.
 
 * QuickTime Player
 * iMovie (optional)
-* [Handbrake](https://handbrake.fr/) - it's free!
+* [Handbrake](https://handbrake.fr) - it's free!
 
 ### Instructions
 1. *Start a screen recording:* Open QuickTime Player and go to File -> New Screen Recording (control-⌘-n). This will allow you to start recording all or part of your screen.
