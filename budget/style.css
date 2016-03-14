@@ -3,10 +3,16 @@ body {
 }
 
 div {
-  margin-bottom: 1em;
+  margin-bottom: .1em;
 }
 
-.inline-div {
-  display: inline-block;
-  background: firebrick;
+.flex-div {
+  display: flex;
+  align-items: center;
+}
+
+.square-div {
+  width: 1em;
+  height: 1em;
+  margin-right: .5em;
 }

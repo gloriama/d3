@@ -21,6 +21,27 @@ var root = nodes[0];
 root.radius = 0;
 root.fixed = true;
 
+// Render legend
+var legend = d3.select('body').append('div');
+var legendItems = legend.selectAll('div')
+  .data(totalCosts)
+  .enter().append('div')
+  .attr('class', 'flex-div');
+
+legendItems[0].forEach(function(legendItem, i) {
+  console.log(legendItem);
+  d3.select(legendItem).append('div')
+  .attr('class', 'square-div')
+  .style('background', function() {
+    return color(i % 10);
+  });
+
+  d3.select(legendItem).append('div')
+  .text(function(d) {
+    return d[0];
+  });
+});
+
 // Create svg element
 var svg = d3.select("body").append("svg")
     .attr("width", width)
